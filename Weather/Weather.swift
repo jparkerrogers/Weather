@@ -24,19 +24,18 @@ class Weather {
     var description: String = ""
     var icon: String = ""
     var temperature: String = ""
-    var windSpeed: String = ""
+    var windSpeed: Float?
     var name: String = ""
     var temperatureK: Float?
     var temperatureC: Float? {
         get {
             if let temperatureK = temperatureK {
-                return temperatureK - 273.15
+                 return temperatureK - 273.15
             } else {
                 return nil
             }
         }
     }
-    
     init?(dictionary: [String: AnyObject]) {
         
         if let arrayUsingWeatherKey = dictionary[Weather.kWeather] as? [[String: AnyObject]] {
@@ -53,14 +52,14 @@ class Weather {
         }
         if let main = dictionary[Weather.kMain] as? [String: AnyObject] {
             
-            if let temperature =  main[Weather.kTemperature] as? String{
+            if let temperature =  main[Weather.kTemperature] as? NSNumber{
                 self.temperatureK = Float(temperature)
             }
         }
         if let wind = dictionary[Weather.kWind] as? [String: AnyObject] {
             
-            if let windSpeed = wind[Weather.kWindSpeed] as? String {
-                self.windSpeed = windSpeed
+            if let windSpeed = wind[Weather.kWindSpeed] as? NSNumber {
+                self.windSpeed = Float(windSpeed)
             }
         }
         

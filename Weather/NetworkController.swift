@@ -11,14 +11,15 @@ import Foundation
 
 class NetworkController {
     
-    static let baseURL: String = "api.openweathermap.org/data/2.5/weather"
+    static let baseURL = "http://api.openweathermap.org/data/2.5/weather"
     static let apiKey = "a185c092cde0e736c7006edc6f34b0db"
     
     
     
     static func searchURLByCity(city: String) -> NSURL {
         let escapedCityString = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet())
-        return NSURL(string: baseURL + "?q=\(escapedCityString)" + "&appid=\(apiKey)")!
+        
+        return NSURL(string: baseURL + "?q=\(escapedCityString!)" + "&appid=\(apiKey)")!
     }
     
     static func dataAtURL(url: NSURL, completion:(resultData: NSData?) -> Void) {
@@ -37,4 +38,5 @@ class NetworkController {
         
         dataTask.resume()
     }
+
 }
